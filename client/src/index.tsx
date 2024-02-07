@@ -5,7 +5,7 @@ import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: ' https://studio.apollographql.com/public/countries',
+  uri: 'https://countries.trevorblades.com/graphql',
   cache: new InMemoryCache(),
 });
 
