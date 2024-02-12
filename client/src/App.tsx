@@ -10,48 +10,30 @@ import { CountryPart1 } from "./interfaces/Country1.interface";
 function App() {
   const { loading, error, data: country_data_part_1 } = useQuery(GET_ALL_COUNTRIES);
   const [countries, setCountries] = useState<any>([]);
-  
 
   useEffect(() => {
     const fetchData = async () => {
       const allMergerCountry: any = [];
       try {
-        const response = await fetch('http://localhost:5000/api/countries/get-all');
-        if (!response.ok) {
+        const country_data_part_2 = await fetch('http://localhost:5000/api/countries/get-all');
+        if (!country_data_part_2.ok) {
           throw new Error('Network response was not ok');
         }
-        const data = await response.json();
-        console.log("data: ", data);
-
-        country_data_part_1?.countries.map((country: any) => {
-          const additionalData = data.find((data:any) => data.name === country.country_name);
-          delete additionalData.country_name
-          const merged = {...country, ...additionalData };
-          allMergerCountry.push(merged)
-          // console.log("country: ", merged);
-        })
-        console.log("allMergerCountry: ", allMergerCountry);
-        
-        setCountries(allMergerCountry)
+        const data: CountryPart2[] = await country_data_part_2.json();
+        const mergedArray = country_data_part_1?.countries.map((country: CountryPart1, index: number) => ({
+          ...country,
+          ...data[index]
+        }))        
+        setCountries(mergedArray)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
     
     fetchData();
-
-    // const mergedCountriesData = country_data_part_1?.countries.map((country: any) => {
-    //   const additionalData = countries.find((data:any) => data.name === country.country_name);
-    //   delete additionalData.country_name
-    //   const merged = {...country, ...additionalData };
-    //   setCountries(merged)
-    //   console.log("country: ", merged);
-    //   return merged;
-    // });
     
     console.log("countries: ", countries);
-    // console.log("merged: ", allMergerCountry);
-    console.log("RATATOR: ", country_data_part_1?.countries);
+    console.log("RATATOR: ", country_data_part_1);
   }, []);
 
   return (

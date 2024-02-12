@@ -4,7 +4,6 @@ export const GET_ALL_COUNTRIES = gql`
   query GetAllCountries {
     countries {
       name
-      native
       capital
       phone
       code
@@ -14,9 +13,7 @@ export const GET_ALL_COUNTRIES = gql`
         name
       }
       languages {
-        code
         name
-        native
         rtl
       }
     }
