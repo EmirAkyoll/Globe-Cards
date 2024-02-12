@@ -52,12 +52,29 @@ export const country_name: any = {
   fontSize: '16px'
 };
 
+export const rotate_button: any = {
+  position: 'absolute',
+  top: '80px',
+  right: '-15px',
+  width: '34px',
+  height: '34px',
+  borderRadius: '7px',
+  backgroundColor: '#ffefd5',
+  cursor: 'pointer',
+  border: '1px solid #909090'
+};
+
+export const rotate_icon: any = {
+  width: '40px',
+  marginLeft: '-9.5px',
+};
+
 export const bookmarking_button: any = {
   position: 'absolute',
   top: '40px',
   right: '-15px',
   width: '34px',
-  height: '35px',
+  height: '34px',
   borderRadius: '7px',
   backgroundColor: '#ffefd5',
   cursor: 'pointer',
@@ -67,5 +84,4 @@ export const bookmarking_button: any = {
 export const bookmark_icon: any = {
   width: '20px',
   marginRight: '15px',
-  // marginLeft: 'auto',
 };

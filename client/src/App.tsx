@@ -13,17 +13,21 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const allMergerCountry: any = [];
       try {
         const country_data_part_2 = await fetch('http://localhost:5000/api/countries/get-all');
         if (!country_data_part_2.ok) {
           throw new Error('Network response was not ok');
         }
         const data: CountryPart2[] = await country_data_part_2.json();
-        const mergedArray = country_data_part_1?.countries.map((country: CountryPart1, index: number) => ({
-          ...country,
-          ...data[index]
-        }))        
+        const mergedArray = country_data_part_1?.countries.map((country: CountryPart1, index: number) => {
+          // console.log("Index:", index);
+          return {
+            index,
+            ...country,
+            ...data[index]
+          };
+        });       
+        console.log('mergedArray:', mergedArray);
         setCountries(mergedArray)
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -34,7 +38,7 @@ function App() {
     
     console.log("countries: ", countries);
     console.log("RATATOR: ", country_data_part_1);
-  }, []);
+  }, [country_data_part_1]);
 
   return (
     <div className="container">

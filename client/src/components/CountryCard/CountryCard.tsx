@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { country_name, card_body, card_footer, card_header, emoji, flag, bookmarking_button, bookmark_icon } from './CountryCard.style'
+import React, { useEffect, useState } from 'react'
+import { country_name, card_body, card_footer, card_header, emoji, flag, bookmarking_button, bookmark_icon, rotate_button, rotate_icon } from './CountryCard.style'
 import { randomLinearGradient } from '../../utils/randomLinearGradient';
 import { formatNumber } from '../../utils/numbersRestructure';
 
@@ -21,6 +21,12 @@ function CountryCard({ country_data }: any) {
     position: "relative",
     color: 'white',
   };
+
+  useEffect(() => {
+    if (country_data?.index === 9) {
+      markIt(country_data?.background[0]?.colors)
+    }
+  }, []);
 
   const changeBackgroundColor = () => {
     const randomColor = randomLinearGradient()
@@ -50,6 +56,9 @@ function CountryCard({ country_data }: any) {
                         </button>
                       )
         }
+        <button style={rotate_button} onClick={() => unMarkIt()}>
+          <img style={rotate_icon} src="https://res.cloudinary.com/dabd62oib/image/upload/v1707744603/vgzbfhcjxp0luviuu8gi.png" alt="bookmarking" />
+        </button>
         <div style={card_header}>
             <img src={country_data?.flag_url} alt={country_data.name} style={flag} />
             <span style={emoji}>{country_data?.emoji}</span>

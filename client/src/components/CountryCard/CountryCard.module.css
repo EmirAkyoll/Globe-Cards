@@ -31,16 +31,7 @@
     width: 15px;
     margin: 0px 8px 2px 8px
 } */
-.card_main{
-    content: '';
-    position: absolute;
-    left: '-50px';
-    top: '50px';
-    width: 0;
-    height: 0;
-    border: '50px solid transparent';
-    border-top-color: red;
-}
+
 @keyframes rotateBackground {
     from {
       transform: rotate(0deg); 
