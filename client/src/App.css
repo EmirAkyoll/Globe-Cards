@@ -19,3 +19,18 @@ html {
   gap: 20px;
   justify-content: space-between;
 }
+
+*[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  display: block;
+  position: absolute;
+  background-color: #222;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  z-index: 999999;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}

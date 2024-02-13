@@ -6,6 +6,7 @@ export const GET_ALL_COUNTRIES = gql`
       name
       capital
       phone
+      native
       code
       currency
       emoji

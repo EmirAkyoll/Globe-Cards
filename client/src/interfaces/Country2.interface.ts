@@ -11,7 +11,7 @@ export interface CountryPart2 {
   background: Background
 }
 
-interface Background{
+export interface Background{
   direction: string;
   colors: string[];
 }

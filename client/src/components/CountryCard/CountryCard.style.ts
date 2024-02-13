@@ -56,8 +56,8 @@ export const rotate_button: any = {
   position: 'absolute',
   top: '80px',
   right: '-15px',
-  width: '34px',
-  height: '34px',
+  width: '30px',
+  height: '30px',
   borderRadius: '7px',
   backgroundColor: '#ffefd5',
   cursor: 'pointer',
@@ -65,23 +65,25 @@ export const rotate_button: any = {
 };
 
 export const rotate_icon: any = {
-  width: '40px',
-  marginLeft: '-9.5px',
+  width: '30px',
+  marginTop: '1.5px',
+  marginLeft: '-6px',
 };
 
 export const bookmarking_button: any = {
   position: 'absolute',
   top: '40px',
   right: '-15px',
-  width: '34px',
+  width: '30px',
   height: '34px',
   borderRadius: '7px',
   backgroundColor: '#ffefd5',
   cursor: 'pointer',
   border: '1px solid #909090'
 };
-
+ 
 export const bookmark_icon: any = {
-  width: '20px',
-  marginRight: '15px',
+  width: '17px',
+  marginRight: '10px',
+  marginTop: '5px',
 };

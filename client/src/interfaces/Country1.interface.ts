@@ -3,17 +3,18 @@ export interface CountryPart1 {
   capital: string;
   phone: number;
   code: string;
+  native: string;
   currency: string;
   emoji: string;
   continent: Continent
   languages: Language[]
 }
 
-interface Continent {
+export interface Continent {
   name: string;
 }
 
-interface Language {
+export interface Language {
   name: string;
   rtl: boolean;
 }
