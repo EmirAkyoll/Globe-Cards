@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { country_name, card_body, card_footer, card_header, emoji, flag, bookmarking_button, bookmark_icon, rotate_button, rotate_icon } from './CountryCard.style'
 import { randomLinearGradient } from '../../utils/randomLinearGradient';
 import { formatNumber } from '../../utils/numbersRestructure';
+import { country_name, card_body, card_footer, card_header, emoji, flag, bookmarking_button, 
+         bookmark_icon, rotate_button, rotate_icon, flip_card_back, flip_card_front, flip_card_inner,
+         card_back_header} from './CountryCard.style'
 
-function CountryCard({ country_data, country_count }: any) {  
+function CountryCard({ country_data, country_count, last_country_index }: any) {  
   const [isMarked, setIsMarked] = useState<boolean>(false);
   const [colors, setColors] = useState<any>(country_data?.background[0]?.colors);
   const [originalColors, setOriginalColors] = useState<string[]>([]);
@@ -12,12 +14,13 @@ function CountryCard({ country_data, country_count }: any) {
   const card: any = {
     backgroundBlendMode: 'multiply',
     background: `linear-gradient(${country_data?.background[0]?.direction},${colors}), rgba(0, 0, 0, 0.2)`,
+    backGroundColor: 'transparent',
+    perspective: '1000px',
     fontSize: '14px',
     width: "220px",
     height: "275px",  
     border: "1px solid black",
     borderRadius: "8px",
-    padding: "7px",
     paddingTop: "0",
     position: "relative",
     color: 'white',
@@ -26,11 +29,34 @@ function CountryCard({ country_data, country_count }: any) {
     transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
   };
 
+  const card_back_body: any = {
+    maxWidth: '210px',
+    height: '240px',
+    position: 'absolute',
+    top: '-225px',
+    backgroundBlendMode: 'multiply',
+    textAlign: 'justify',
+    paddingRight: '10px',
+    background: `url('${country_data?.silhouette_url}'), rgba(0,0,0,0.5)`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    objectFit: "cover"
+  };
+
   useEffect(() => {
-    if (country_data?.index === 9) {
+    console.log("GARD: ", last_country_index);
+    console.log("index: ", country_data?.index);
+    
+    if ((country_data?.shadowIndex === 9) || (last_country_index === 9) || (country_data?.index === last_country_index && last_country_index < 9)) {
       markIt(country_data?.background[0]?.colors)
     }
-  }, []);
+    // if (last_country_index === 9) {
+    //   markIt(country_data?.background[0]?.colors)
+    // }
+    // if (country_data?.index === last_country_index && last_country_index < 9) {
+    //   markIt(country_data?.background[0]?.colors)
+    // }
+  }, [last_country_index]);
 
   const languagesInAbbreviatedForm = () => {
     const languageCount = country_data?.languages.length;
@@ -49,6 +75,9 @@ function CountryCard({ country_data, country_count }: any) {
     });
     return languages;
   }
+
+  // it is for background image's visibility
+  const text = "-------------------------------------------------------"
 
   const dataInAbbreviatedForm = (data: string) => {
     const fragmentedCurrencies = data?.split(",");
@@ -78,7 +107,7 @@ function CountryCard({ country_data, country_count }: any) {
   }
   
   const rotateTheCard = () => {
-    setIsFlipped(true);
+    setIsFlipped(!isFlipped);
   }
 
   return (
@@ -96,6 +125,8 @@ function CountryCard({ country_data, country_count }: any) {
         <button style={rotate_button} onClick={() => rotateTheCard()}>
           <img style={rotate_icon} src="https://res.cloudinary.com/dabd62oib/image/upload/v1707744603/vgzbfhcjxp0luviuu8gi.png" alt="bookmarking" />
         </button>
+       <div style={flip_card_inner}>
+        <div style={flip_card_front}>
         <div style={card_header}>
             <img src={country_data?.flag_url} alt={country_data.name} style={flag} />
             <span style={emoji}>{country_data?.emoji}</span>
@@ -113,13 +144,25 @@ function CountryCard({ country_data, country_count }: any) {
         <div style={card_footer}>
               <span style={{marginRight: '25px'}}>
                 <b>Code:</b> 
-                <span data-tooltip={country_data?.phone}>+{dataInAbbreviatedForm(country_data?.phone)}</span>
+                <span data-tooltip={country_data?.phone}> +{dataInAbbreviatedForm(country_data?.phone)}</span>
               </span>
               <span style={{marginLeft: '25px'}}>
                 <b style={{marginRight: '5px'}}>{country_data.currency_sign}</b> 
                 <span data-tooltip={country_data?.currency}>{dataInAbbreviatedForm(country_data?.currency)}</span>
               </span>
         </div>
+        </div>
+        <div style={flip_card_back}>
+          <div style={card_back_header}>
+              <img src={country_data?.flag_url} alt={country_data.name} style={flag} />
+              <span style={emoji}>{country_data?.emoji}</span>
+              <b data-tooltip={`${country_data?.name} (${country_data?.native})`} style={country_name}>{country_data?.name}</b>
+          </div>
+          <div style={card_back_body}>
+            <span style={{color: '#666666'}}>{text}</span>
+          </div>
+        </div>
+       </div>
     </div>
   )
 }

@@ -1,3 +1,22 @@
+export const flip_card_inner: any = {
+  position: 'relative',
+  transition: "transform 0.6s",
+  transformStyle: "preserve-3d",
+};
+
+export const flip_card_front: any = {
+  transform: 'rotateY(0deg)',
+  backfaceVisibility: 'hidden',
+};
+
+export const flip_card_back: any = {
+  backgroundColor: 'transparent',
+  color: 'white',
+  backfaceVisibility: 'hidden',
+  transform: 'rotateY(180deg)'
+};
+
+
 export const card_header: any = {
   width: '96%',
   background: 'rgba(0, 0, 0, 0.35)',
@@ -8,9 +27,12 @@ export const card_header: any = {
   alignItems: "center",
   padding: '5px',
   paddingTop: '5px',
+};
+
+export const card_back_header: any = {
+  ...card_header,
   position: 'absolute',
-  top: '0',
-  left: '0',
+  top: '-260px'
 };
 
 export const card_body: any = {
@@ -19,8 +41,7 @@ export const card_body: any = {
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginTop: '60px',
-  // animation: `${styles.rotateBackground} 4s linear infinite`,
+  marginTop: '30px',
 };
 
 export const card_footer: any = {
@@ -29,8 +50,7 @@ export const card_footer: any = {
   alignItems: 'center',
   width: "92%",
   height: "30px",
-  position: "absolute",
-  bottom: '10px',
+  marginTop: '35px'
 };
 
 export const flag: any = {
@@ -52,34 +72,33 @@ export const country_name: any = {
   fontSize: '16px'
 };
 
-export const rotate_button: any = {
+export const button: any = {
   position: 'absolute',
-  top: '80px',
-  right: '-15px',
+  right: '-25px',
   width: '30px',
-  height: '30px',
   borderRadius: '7px',
   backgroundColor: '#ffefd5',
   cursor: 'pointer',
   border: '1px solid #909090'
+};
+
+export const rotate_button: any = {
+  ...button,
+  top: '80px',
+  height: '30px',
 };
 
 export const rotate_icon: any = {
   width: '30px',
   marginTop: '1.5px',
   marginLeft: '-6px',
+  cursor: 'pointer',
 };
 
 export const bookmarking_button: any = {
-  position: 'absolute',
+  ...button,
   top: '40px',
-  right: '-15px',
-  width: '30px',
   height: '34px',
-  borderRadius: '7px',
-  backgroundColor: '#ffefd5',
-  cursor: 'pointer',
-  border: '1px solid #909090'
 };
  
 export const bookmark_icon: any = {

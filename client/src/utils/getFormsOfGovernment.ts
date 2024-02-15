@@ -1,6 +1,6 @@
 import { Country } from "../interfaces/Country.interface";
 
-export function prepareDeduplicatedData(countries: any[], dataToBePrepare: string) {
+export function prepareDeduplicatedData(countries: Country[], dataToBePrepare: string) {
     const data: Set<string> = new Set();
     if (dataToBePrepare === 'continent') {
         countries?.forEach((country: any) => {
@@ -10,10 +10,11 @@ export function prepareDeduplicatedData(countries: any[], dataToBePrepare: strin
     }
     
     if (dataToBePrepare === 'languages') {
-        countries?.forEach((country: any, index: number) => {
-            data.add(country?.languages[index]?.name);
-        });
-        console.log("languages: ", Array.from(data));
+        countries?.forEach(country => {
+            country?.languages?.forEach((language: any) => {
+                data.add(language.name);
+            });
+        });        
         return Array.from(data);
     }
 
