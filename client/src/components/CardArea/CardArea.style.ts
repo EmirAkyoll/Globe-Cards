@@ -5,3 +5,13 @@ export const cards: any = {
   gap: '20px',
   justifyItems: 'center'
 };
+
+export const gif: any = {
+  width: '335px',
+};
+
+export const loading_place: any = {
+  display: 'grid',
+  justifyContent: 'center',
+  alignItems: 'center'
+};

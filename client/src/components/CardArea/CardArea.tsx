@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { cards } from "./CardArea.style";
+import React, { Suspense, useEffect, useState } from "react";
+import { cards, gif, loading_place } from "./CardArea.style";
 import { CountryPart2 } from "../../interfaces/Country2.interface";
 import { CountryPart1 } from "../../interfaces/Country1.interface";
 import { GET_ALL_COUNTRIES } from "../../gql/queries";
@@ -27,7 +27,7 @@ function CardArea() {
 
   const fetchData = async () => {
     try {
-      const country_data_part_2 = await fetch("http://localhost:5000/api/countries/get-all");
+      const country_data_part_2 = await fetch("https://globe-cards-api.onrender.com/api/countries/get-all");
       if (!country_data_part_2.ok) {
         throw new Error("Network response was not ok");
       }
@@ -164,6 +164,12 @@ function CardArea() {
           populationRangeProps={{ selectedPopulationRange: selectedPopulationRange, onValueChangePopulationRange: handleChange("populationRange") }}      
       />
       <hr style={{ marginBottom: '20px' }} />
+      {countries?.length < 250 && 
+        <div style={loading_place}>
+          <img style={gif} src="https://res.cloudinary.com/dabd62oib/image/upload/v1708100546/bkcmyqb5nmxvlnc9uj2f.gif" alt="loading-gif" />
+        </div> 
+      }
+      <Suspense fallback="...">
       <div style={cards}>
         {filteredCountries.length == 0 ? 
           countries?.map((country: Country) => (
@@ -183,6 +189,7 @@ function CardArea() {
             />
           )) }
       </div>
+      </Suspense>
     </>
   );
 }
