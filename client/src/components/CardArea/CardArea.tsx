@@ -25,34 +25,31 @@ function CardArea() {
   const [ selectedAreaRange, setSelectedAreaRange ] = useState<string>('');
   const [ selectedPopulationRange, setSelectedPopulationRange ] = useState<string>('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const country_data_part_2 = await fetch("http://localhost:5000/api/countries/get-all");
-        if (!country_data_part_2.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data: CountryPart2[] = await country_data_part_2.json();
-        const mergedArray = country_data_part_1?.countries.map(
-          (country: CountryPart1, index: number) => {
-            return {
-              shadowIndex: index,
-              ...country,
-              ...data[index],
-            };
-          }
-        );
-        console.log("mergedArray:", mergedArray);
-        setCountries(mergedArray);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  const fetchData = async () => {
+    try {
+      const country_data_part_2 = await fetch("http://localhost:5000/api/countries/get-all");
+      if (!country_data_part_2.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
+      const data: CountryPart2[] = await country_data_part_2.json();
+      const mergedArray = country_data_part_1?.countries.map(
+        (country: CountryPart1, index: number) => {
+          return {
+            shadowIndex: index,
+            ...country,
+            ...data[index],
+          };
+        }
+      );
+      console.log("mergedArray:", mergedArray);
+      setCountries(mergedArray);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
-
-    console.log("countries: ", countries);
-    console.log("RATATOR: ", country_data_part_1);
   }, [country_data_part_1]);
 
   useEffect(() => {
@@ -166,7 +163,7 @@ function CardArea() {
           areaRangeProps={{ selectedAreaRange: selectedAreaRange, onValueChangeAreaRange: handleChange("areaRange") }}      
           populationRangeProps={{ selectedPopulationRange: selectedPopulationRange, onValueChangePopulationRange: handleChange("populationRange") }}      
       />
-
+      <hr style={{ marginBottom: '20px' }} />
       <div style={cards}>
         {filteredCountries.length == 0 ? 
           countries?.map((country: Country) => (

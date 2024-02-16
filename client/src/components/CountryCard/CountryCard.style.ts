@@ -16,7 +16,6 @@ export const flip_card_back: any = {
   transform: 'rotateY(180deg)'
 };
 
-
 export const card_header: any = {
   width: '96%',
   background: 'rgba(0, 0, 0, 0.35)',

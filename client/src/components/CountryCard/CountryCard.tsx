@@ -44,18 +44,12 @@ function CountryCard({ country_data, country_count, last_country_index }: any) {
   };
 
   useEffect(() => {
-    console.log("GARD: ", last_country_index);
-    console.log("index: ", country_data?.index);
-    
-    if ((country_data?.shadowIndex === 9) || (last_country_index === 9) || (country_data?.index === last_country_index && last_country_index < 9)) {
+    if ((country_data?.index === 9) || (country_data?.shadowIndex === 9)) {
       markIt(country_data?.background[0]?.colors)
     }
-    // if (last_country_index === 9) {
-    //   markIt(country_data?.background[0]?.colors)
-    // }
-    // if (country_data?.index === last_country_index && last_country_index < 9) {
-    //   markIt(country_data?.background[0]?.colors)
-    // }
+    if (country_data?.index === last_country_index && last_country_index < 9) {
+      markIt(country_data?.background[0]?.colors)
+    }
   }, [last_country_index]);
 
   const languagesInAbbreviatedForm = () => {
@@ -158,7 +152,9 @@ function CountryCard({ country_data, country_count, last_country_index }: any) {
               <span style={emoji}>{country_data?.emoji}</span>
               <b data-tooltip={`${country_data?.name} (${country_data?.native})`} style={country_name}>{country_data?.name}</b>
           </div>
-          <div style={card_back_body}>
+          
+          {/* conditional rendering for lazy loading  */}
+          <div style={isFlipped ? { display: 'block', ...card_back_body } : { display: 'none' }}>
             <span style={{color: '#666666'}}>{text}</span>
           </div>
         </div>
